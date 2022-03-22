@@ -1,7 +1,7 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 import { Request, Response } from "express";
-import { helperCreateUser, helperGetUser } from "../helpers/user";
+import { helperCreateUser,helperGetUser } from "../helpers/user";
 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -104,12 +104,12 @@ export const profile = async (req: Request, res: Response) => {
 };
 
 export const getAllUser = async (req: Request, res: Response) => {
-  try {
-    let AllUser = await helperGetUser();
-    AllUser
-      ? res.status(200).send(AllUser)
-      : res.status(404).send({ msg: "user was not shortened" });
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      let AllUser = await helperGetUser();
+      AllUser
+        ? res.status(200).send(AllUser)
+        : res.status(404).send({ msg: "user was not shortened" });
+    } catch (error) {
+      console.error(error);
+    }
+  };

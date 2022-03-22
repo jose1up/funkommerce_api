@@ -6,7 +6,7 @@ import { tokenValidate } from "../../helpers/user"
 
 router.post("/signUp", signUp);
 router.post("/signIn", signIn);
-router.get("/",getAllUser);
+router.get("/", getAllUser);
 router.get("/profile", tokenValidate, profile);
 
 export default router;
