@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id           Int            @id @unique @default(autoincrement())
+  title        String
+  number       String
+  image        String
+  price        Decimal        @db.Money
+  stock        Int
+  description  String         @default("")
+  formFactor   String
+  Category     Category?      @relation(fields: [CategoryId], references: [id])
+  CategoryId   Int?
+  Brand        Brand?         @relation(fields: [BrandId], references: [id])
+  BrandId      Int?
+  Order_detail Order_detail[]
+  License      License?       @relation(fields: [licenseId], references: [id])
+  licenseId    Int?
+}
+
+model License {
+  id      Int       @id @unique @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
+model Category {
+  id      Int       @id @unique @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
+model Brand {
+  id      Int       @id @unique @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  lastName  String?
+  role      Role     @default(USERS)
+  createdAt DateTime @default(now())
+  Order     Order[]
+}
+
+model Order {
+  id            Int            @id @unique @default(autoincrement())
+  status_pay    String         @default("PENDING")
+  status_order  String         @default("PENDING")
+  order_address String?
+  amount        Decimal?       @db.Money
+  DateTime      DateTime       @default(now())
+  User          User           @relation(fields: [UserId], references: [id])
+  UserId        Int
+  Order_detail  Order_detail[]
+}
+
+model Order_detail {
+  id        Int      @id @unique @default(autoincrement())
+  DateTime  DateTime @default(now())
+  quantity  Int
+  price     Decimal? @db.Money
+  subtotal  Decimal? @db.Money
+  Order     Order?   @relation(fields: [OrderId], references: [id])
+  OrderId   Int?
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+}
+
+enum Role {
+  USERS
+  ADMIN
+}
