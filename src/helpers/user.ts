@@ -23,7 +23,7 @@ interface IDecoded {
   exp: number;
 }
 
-export const tokenValidate = async (req: Request,res: Response) => {
+export const tokenValidate = async (req: Request, res: Response) => {
   try {
     const token = req.header("auth-token");
     if (!token) return res.status(401).send({ msg: "Acces denied" });
@@ -36,8 +36,15 @@ export const tokenValidate = async (req: Request,res: Response) => {
     const userId = await prisma.user.findUnique({
       where: { id: parseInt(decoded.id) },
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-   
+export const helperGetUser = async () => {
+  try {
+    let getAllUser = await prisma.user.findMany({});
+    return getAllUser;
   } catch (error) {
     console.error(error);
   }
