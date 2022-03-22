@@ -1,4 +1,4 @@
-export const licenses=[
+export const seedLicenses=[
     {
         "name": "Sock Monkey"
     },

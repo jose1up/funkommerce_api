@@ -1,33 +1,27 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 import console from "console";
-import { products } from "./seeders/product";
-import { category } from "./seeders/category";
-import { brands } from "./seeders/brand";
-import {licenses } from "./seeders/license"
+import { seedProducts } from "./seeders/product";
+import { seedCategory } from "./seeders/category";
+import { seedBrands } from "./seeders/brand";
+import {seedLicenses } from "./seeders/license"
 
 export const init = async () => {
   try {
     const verification = await prisma.product.findMany({});
 
     if (!verification.length) {
-
-      // let arrayLicense:any[] = [];
-      // products.map((element)=>{
-      //   arrayLicense.push({name: element.attributes.license})
-      // })
-      // console.log(arrayLicense)
       await Promise.all([prisma.license.createMany({
-        data: licenses, 
+        data: seedLicenses, 
         skipDuplicates:true
       }), 
         prisma.brand.createMany({
-        data: brands,
+        data: seedBrands,
         skipDuplicates:true
       }), prisma.category.createMany({
-        data: category,
+        data: seedCategory,
       })]).then(()=>{
-        products.map(async (product: any) => {
+        seedProducts.map(async (product: any) => {
           await prisma.product.create({
           data: {
             title: product.attributes.title,

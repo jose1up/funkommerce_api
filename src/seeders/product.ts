@@ -1,4 +1,4 @@
-export const products = [
+export const seedProducts = [
     {
         "id": "42836",
         "type": "items",

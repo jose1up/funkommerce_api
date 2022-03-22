@@ -1,4 +1,4 @@
-export const brands = [
+export const seedBrands = [
     {
         "name": "Trading Cards",
     },
