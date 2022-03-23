@@ -44,14 +44,17 @@ model Brand {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String?
-  lastName  String?
-  role      Role     @default(USERS)
-  createdAt DateTime @default(now())
-  Order     Order[]
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  password        String
+  name            String?
+  lastName        String?
+  change_password Boolean  @default(false)
+  role            Role     @default(USERS)
+  createdAt       DateTime @default(now())
+  Order           Order[]
+  status    Status   @default(PENDING)
+  LogedIn   Boolean  @default(false)
 }
 
 model Order {
@@ -81,4 +84,13 @@ model Order_detail {
 enum Role {
   USERS
   ADMIN
+}
+enum Status {
+  ACTIVE
+  PENDING
+}
+
+enum LogedIn {
+  TRUE
+  FALSE
 }
