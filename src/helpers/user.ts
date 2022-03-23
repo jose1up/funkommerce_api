@@ -67,20 +67,42 @@ export const helperOneUser = async (prosp: any) => {
   }
 };
 
-export const helperSetRoll= async (prosp: any) => {
-  const { idUser , Role} = prosp;
+export const helperSetRoll = async (prosp: any) => {
+  const { idUser, Role } = prosp;
   try {
     let getOneUser = await prisma.user.update({
       where: {
         id: Number(idUser),
-      }, data:{
-        role: Role
-      }
+      },
+      data: {
+        role: Role,
+      },
     });
 
     return getOneUser;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const helperResetPass = async (prosp: any) => {
+  const { idUser, flat } = prosp;
+  try {
+    let getOneUser = await prisma.user.update({
+      where: {
+        id: Number(idUser),
+      },
+      data: {
+        change_password: flat,
+        password: "1234",
+      },
+    });
+    if (getOneUser) {
+      
+      
+    }
 
 
+    return getOneUser;
   } catch (error) {
     console.error(error);
   }
