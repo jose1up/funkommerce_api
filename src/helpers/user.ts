@@ -43,7 +43,7 @@ export const tokenValidate = async (req: Request, res: Response) => {
 
 export const helperGetUser = async () => {
   try {
-    let getAllUser = await prisma.user.findMany({});
+    let getAllUser = await prisma.user.findMany({include:{Order:true}});
     return getAllUser;
   } catch (error) {
     console.error(error);
