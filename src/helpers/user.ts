@@ -43,8 +43,44 @@ export const tokenValidate = async (req: Request, res: Response) => {
 
 export const helperGetUser = async () => {
   try {
-    let getAllUser = await prisma.user.findMany({include:{Order:true}});
+    let getAllUser = await prisma.user.findMany({ include: { Order: true } });
     return getAllUser;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const helperOneUser = async (prosp: any) => {
+  const { idUser } = prosp;
+  try {
+    let getOneUser = await prisma.user.findUnique({
+      where: {
+        id: Number(idUser),
+      },
+      include: {
+        Order: true,
+      },
+    });
+    return getOneUser;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const helperSetRoll= async (prosp: any) => {
+  const { idUser , Role} = prosp;
+  try {
+    let getOneUser = await prisma.user.update({
+      where: {
+        id: Number(idUser),
+      }, data:{
+        role: Role
+      }
+    });
+
+    return getOneUser;
+
+
   } catch (error) {
     console.error(error);
   }

@@ -1,7 +1,7 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 import { Request, Response } from "express";
-import { helperCreateUser,helperGetUser } from "../helpers/user";
+import { helperCreateUser, helperGetUser, helperOneUser,helperSetRoll} from "../helpers/user";
 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -96,6 +96,7 @@ export const profile = async (req: Request, res: Response) => {
     console.log(decoded);
     const userId = await prisma.user.findUnique({
       where: { id: parseInt(decoded.id) },
+      include: { Order: true },
     });
     res.status(200).send({ msg: "User found", user: userId });
   } catch (error) {
@@ -104,12 +105,44 @@ export const profile = async (req: Request, res: Response) => {
 };
 
 export const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const token = req.header("auth-token");
+    if (!token) return res.status(401).send({ msg: "Acces denied" });
+    let AllUser = await helperGetUser();
+    AllUser
+      ? res.status(200).send(AllUser)
+      : res.status(404).send({ msg: "user was not shortened" });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getOneUser = async (req: Request, res: Response) => {
     try {
-      let AllUser = await helperGetUser();
-      AllUser
-        ? res.status(200).send(AllUser)
+    //   const token = req.header("auth-token");
+      const props = req.params;
+    //   if (!token) return res.status(401).send({ msg: "Acces denied" });
+      let oneUser = await helperOneUser(props);
+      oneUser
+        ? res.status(200).send(oneUser)
         : res.status(404).send({ msg: "user was not shortened" });
     } catch (error) {
       console.error(error);
     }
   };
+
+  export const setUserRole = async (req: Request, res: Response) => {
+    try {
+    //   const token = req.header("auth-token");
+      const props = req.body
+    //   if (!token) return res.status(401).send({ msg: "Acces denied" });
+      let oneUser = await helperSetRoll(props);
+      oneUser
+        ? res.status(200).send(oneUser)
+        : res.status(404).send({ msg: "user not update role" });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
