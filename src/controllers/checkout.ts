@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client'
+
 const {product, order, user} = new PrismaClient()
 import Stripe from 'stripe';
 const {STRIPE_URL} = process.env 
-const stripe = new Stripe(STRIPE_URL|| "", {
+const stripe = new Stripe(STRIPE_URL || "", {
   apiVersion: '2020-08-27',
 });
+
 import { Request, Response } from "express";
 import nodemailer from "nodemailer";
 const { google } = require("googleapis");
