@@ -10,6 +10,7 @@ import {
   allStatusOrder,
   updataquantity,
   getAllOrderIncart,
+  UpDateOrder_address,
   OrderAccordingState,
 } from "../../controllers/order";
 
@@ -23,6 +24,7 @@ router.get("/setstatus",OrderAccordingState)
 //post
 router.post("/", postOrder);
 //put 
+router.put("/setOrder_address",UpDateOrder_address)
 router.put("/insertproduct", insertProduct);
 router.put("/updataquantity", updataquantity);
 router.put("/setstatus",OrderSetStatus)
