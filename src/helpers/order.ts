@@ -48,7 +48,7 @@ export const helpersPostOrderAll = async (props: any) => {
       data: {
         UserId,
         status_pay: "INCART",
-      },
+      }
     });
     const promesa = await Promise.all([
       Items.map(async (item: any) => {
@@ -243,6 +243,20 @@ export const helpersUpStatus = async (props: any) => {
     });
 
     return allStatusSet;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const helpersUpDateOrder_address = async (props: any) => {
+  const { idOrder, order_address } = props;
+  try {
+    let findOrderId = await order.findUnique({ where: { id: idOrder } });
+    let allOrderSet = await order.update({
+      where: { id: idOrder },
+      data: { order_address: order_address },
+    });
+    return allOrderSet;
   } catch (error) {
     console.error(error);
   }

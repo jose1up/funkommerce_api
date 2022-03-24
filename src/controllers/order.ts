@@ -9,6 +9,7 @@ import {
   helpersInsertProduct,
   helpersAllOrderIncart,
   helpersOneStatusAllOrder,
+  helpersUpDateOrder_address
 } from "../helpers/order";
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
@@ -19,7 +20,7 @@ export const postOrder = async (req: Request, res: Response) => {
     const props = req.body;
     let newDetail: any = await helpersPostOrderAll(props);
     newDetail
-      ? res.status(200).send({ msg: "Detail has been created" })
+      ? res.status(200).send({ msg: "Detail has been created"})
       : res.status(404).send({ msg: "Detail not Created" });
   } catch (error) {
     console.error(error);
@@ -137,6 +138,18 @@ export const OrderSetStatus = async (req: Request, res: Response) => {
     setStatus
       ? res.status(200).send(setStatus)
       : res.status(404).send({ msg: "not update order status" });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const UpDateOrder_address = async (req: Request, res: Response) => {
+  try {
+    const props = req.body;
+    let setOrder_address: any = await helpersUpDateOrder_address(props);
+    setOrder_address
+      ? res.status(200).send(setOrder_address)
+      : res.status(404).send({ msg: "not update Order_address" });
   } catch (error) {
     console.error(error);
   }
