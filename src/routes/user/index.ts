@@ -28,7 +28,7 @@ router.get("/", getAllUser);
 router.put("/", setUserRole);
 router.put("/newPassword/confirm/:token", newPassword);
 router.get("/profile", tokenValidate, profile);
-router.get("/delete", deleteUser); //eliminar usuario (en trabajo)
+router.delete("/delete", deleteUser); //eliminar usuario (en trabajo)
 router.post("/adminUsers", getUsersAdmin);
 router.get("/signOut", logOut); //cerrar sesion
 
