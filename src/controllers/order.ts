@@ -145,7 +145,7 @@ export const OrderSetStatus = async (req: Request, res: Response) => {
 
 export const UpDateOrder_address = async (req: Request, res: Response) => {
   try {
-    const props = req.body;
+    const props = req.params;
     let setOrder_address: any = await helpersUpDateOrder_address(props);
     setOrder_address
       ? res.status(200).send(setOrder_address)
