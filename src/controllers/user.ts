@@ -121,7 +121,6 @@ export const signIn = async (req: Request, res: Response) => {
     if (!validPassword) {
       return res.status(200).send({ msg: "Password is incorrect" });
     }
-    Sta
 
     if (user.status === "PENDING") {
       return res
