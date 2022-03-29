@@ -1,4 +1,4 @@
-import { PrismaClient, Status } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import { Request, Response } from "express";
 import {
@@ -121,9 +121,9 @@ export const signIn = async (req: Request, res: Response) => {
     if (!validPassword) {
       return res.status(200).send({ msg: "Password is incorrect" });
     }
+    Sta
 
-
-    if (user.status === Status.PENDING) {
+    if (user.status === "PENDING") {
       return res
         .status(200)
         .send({ msg: "User not confirmed, please check your Email" });
