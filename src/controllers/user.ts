@@ -109,8 +109,8 @@ export const signUp = async (req: Request, res: Response) => {
 export const signIn = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    const user = await prisma.user.findFirst({ where: { email } });
-    // console.log(user);
+    const user = await prisma.user.findFirst({ where: { email }});
+  
     if (!user) {
       return res.status(200).send({ msg: "User not found" });
     }
@@ -122,7 +122,7 @@ export const signIn = async (req: Request, res: Response) => {
       return res.status(200).send({ msg: "Password is incorrect" });
     }
 
-    if (user.status === "PENDING") {
+    if (user?.status === "PENDING") {
       return res
         .status(200)
         .send({ msg: "User not confirmed, please check your Email" });
