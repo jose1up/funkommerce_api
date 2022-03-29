@@ -110,7 +110,6 @@
 //   try {
 //     const { email, password } = req.body;
 //     const user = await prisma.user.findFirst({ where: { email }});
-  
 //     if (!user) {
 //       return res.status(200).send({ msg: "User not found" });
 //     }
@@ -121,8 +120,6 @@
 //     if (!validPassword) {
 //       return res.status(200).send({ msg: "Password is incorrect" });
 //     }
-    
-
 //     if (user.status === "PENDING") {
 //       return res
 //         .status(200)
