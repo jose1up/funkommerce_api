@@ -318,9 +318,9 @@ export const deleteUser = async (req: Request, res: Response) => {
         })
       }
       await prisma.order.delete({where:{id:findOrder.id}})
-      await prisma.user.delete({ where: { id: Number(idUser) } });
-      return res.status(200).send({ msg: "User has been deleted" });
     }
+    await prisma.user.delete({ where: { id: Number(idUser) } });
+    return res.status(200).send({ msg: "User has been deleted" });
   }
     res.status(404).send({ msg: "Wrong user ID" });
   } catch (error) {
@@ -425,8 +425,8 @@ export const setUserResetPass = async (req: Request, res: Response) => {
         subject: "Recover your Account",
         text: "Hello from gmail using API",
         html: `<h1>Change your Password</h1>
-          <h2>Dont worry! ${oneUser.name}</h2>
-          <p>If you forgot your password click in the link donw below to get a new one!</p>
+          <h2>Hi ${oneUser.name}!</h2>
+          <p>Your password was changed and set to 1234, please update it by clicking here:</p>
           <a href=http://localhost:3000/confirmnewpassword/${token}> Click here </a>
           </div>`,
       };
