@@ -37,6 +37,7 @@ export const getProductsID = async (req: Request, res: Response) => {
     console.log("hola",id);
 
     let getProduct = await getFindProductId(id);
+    console.log(getProduct)
     getProduct
       ? res.status(200).send(getProduct)
       : res.status(404).send({ msg: "Product not found" });
